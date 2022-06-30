@@ -1,0 +1,13 @@
+aws_access_key: ""
+aws_secret_key: ""
+aws_profile: default
+AWS_ZONE: "us-east-2b"
+AWS_REGION: "us-east-2"
+KOPS_STATE_STORE: kops-state-store-kubernetes-ema
+KOPS_CLUSTER_NAME: jordi.k8s.local
+storage: export KOPS_STATE_STORE=s3://kops-state-store-kubernetes-ema
+cluster: export KOPS_CLUSTER_NAME=jordi.k8s.local
+MAX_NODE: 5
+MIN_NODE: 2
+NODE_COUNT: 1
+MASTER_COUNT: 1

@@ -1,0 +1,3 @@
+---
+- name: configure kubecfg
+  shell: "kops export kubecfg --admin --name {{KOPS_CLUSTER_NAME}} --state=s3://{{KOPS_STATE_STORE}}"

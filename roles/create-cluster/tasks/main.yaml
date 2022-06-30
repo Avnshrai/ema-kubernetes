@@ -1,0 +1,23 @@
+---
+###########################
+# Creating cluster
+###########################
+    - name: bashrc
+      shell: . /home/ubuntu/.bashrc
+    - name: creating bucket
+      shell: aws s3 mb s3://{{KOPS_STATE_STORE}} --region us-east-2 --endpoint-url https://s3.us-east-2.amazonaws.com
+    - name: enabling versioning
+      shell: aws s3api put-bucket-versioning --bucket "{{KOPS_STATE_STORE}}" --versioning-configuration Status=Enabled
+    - name: doing ssh-keygen on slave
+      shell: ssh-keygen -q -t rsa -f /home/ubuntu/.ssh/id_rsa -C "" -N ""
+    - name: creating cluster
+      shell: kops create cluster --node-count={{NODE_COUNT}} --master-size=t2.medium --networking calico --node-size=t2.medium --zones=us-east-2b  --state=s3://{{KOPS_STATE_STORE}} --name={{KOPS_CLUSTER_NAME}}   
+    - name: create secret
+      shell: kops create secret --name {{KOPS_CLUSTER_NAME}} sshpublickey admin -i /home/ubuntu/.ssh/id_rsa.pub --state=s3://{{KOPS_STATE_STORE}}
+    - name: updating cluster
+      shell: kops update cluster {{KOPS_CLUSTER_NAME}} --yes --state=s3://{{KOPS_STATE_STORE}}
+   # - name: export kubecfg admin
+   #   shell: kops export kubecfg --admin=72h --state=s3://{{KOPS_STATE_STORE}} --name {{KOPS_CLUSTER_NAME}}
+   # - name: Pause for 7 minutes to build app cache
+   #   pause:
+   #     minutes: 7

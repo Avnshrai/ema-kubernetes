@@ -1,0 +1,8 @@
+---
+- name: bashrc /home/ubuntu
+  lineinfile:
+    dest: "/home/ubuntu/.bashrc"
+    state: present
+    line: "{{ storage }} \n{{ cluster }}"
+- name: running source.bashrc
+  shell: . /home/ubuntu/.bashrc

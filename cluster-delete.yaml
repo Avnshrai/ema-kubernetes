@@ -1,0 +1,5 @@
+---
+ - hosts: aws
+   tasks:
+   - name: Deleting cluster
+     shell: kops delete cluster --name=giit.k8s.local --yes --state=s3://demo-ansiblefinal1-kops-practice-state-store

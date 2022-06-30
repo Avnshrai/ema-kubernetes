@@ -1,0 +1,12 @@
+---
+- hosts: aws
+  become: true
+  roles:
+  - bashrc
+  - aws-config
+  - kops-install
+  - create-cluster
+  - kubecfg
+  - kubectl
+  - cluster-wait
+  - application
